@@ -128,14 +128,22 @@ void CItemCache::OnFlush()
 					", attrtype3=%d, attrvalue3=%d"
 					", attrtype4=%d, attrvalue4=%d"
 					", attrtype5=%d, attrvalue5=%d"
+ifdef __RARITY_SYSTEM__
+					", attrtype6=%d, attrvalue6=%d"
+					", rarity=%d",
+#else					
 					", attrtype6=%d, attrvalue6=%d",
+#endif				
 					p->aAttr[0].bType, p->aAttr[0].sValue,
 					p->aAttr[1].bType, p->aAttr[1].sValue,
 					p->aAttr[2].bType, p->aAttr[2].sValue,
 					p->aAttr[3].bType, p->aAttr[3].sValue,
 					p->aAttr[4].bType, p->aAttr[4].sValue,
 					p->aAttr[5].bType, p->aAttr[5].sValue,
-					p->aAttr[6].bType, p->aAttr[6].sValue);
+					p->aAttr[6].bType, p->aAttr[6].sValue
+#ifdef __RARITY_SYSTEM__
+					,25					
+					);
 		}
 
 		char szItemQuery[QUERY_MAX_LEN + QUERY_MAX_LEN];
