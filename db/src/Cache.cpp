@@ -128,7 +128,7 @@ void CItemCache::OnFlush()
 					", attrtype3=%d, attrvalue3=%d"
 					", attrtype4=%d, attrvalue4=%d"
 					", attrtype5=%d, attrvalue5=%d"
-ifdef __RARITY_SYSTEM__
+#ifdef __RARITY_SYSTEM__
 					", attrtype6=%d, attrvalue6=%d"
 					", rarity=%d",
 #else					
