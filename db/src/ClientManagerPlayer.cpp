@@ -65,7 +65,7 @@ bool CreateItemTableFromRes(MYSQL_RES * res, std::vector<TPlayerItem> * pVec, DW
 			str_to_number(item.aAttr[j].bType, row[cur++]);
 			str_to_number(item.aAttr[j].sValue, row[cur++]);
 		}
-		str_to_number(item.rarity, row[curr++]);
+		str_to_number(item.rarity, row[cur++]);
 		item.owner		= dwPID;
 	}
 
