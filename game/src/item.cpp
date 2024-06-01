@@ -28,7 +28,7 @@ CItem::CItem(DWORD dwVnum)
 	m_bExchanging(false), m_pkDestroyEvent(NULL), m_pkUniqueExpireEvent(NULL), m_pkTimerBasedOnWearExpireEvent(NULL), m_pkRealTimeExpireEvent(NULL),
 	m_pkExpireEvent(NULL),
    	m_pkAccessorySocketExpireEvent(NULL), m_pkOwnershipEvent(NULL), m_dwOwnershipPID(0), m_bSkipSave(false), m_isLocked(false),
-	m_dwMaskVnum(0), m_dwSIGVnum (0)
+	m_dwMaskVnum(0), m_dwSIGVnum (0), m_rarity(0)
 {
 	memset( &m_alSockets, 0, sizeof(m_alSockets) );
 	memset( &m_aAttr, 0, sizeof(m_aAttr) );

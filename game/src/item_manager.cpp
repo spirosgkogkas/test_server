@@ -426,6 +426,11 @@ LPITEM ITEM_MANAGER::CreateItem(DWORD vnum, DWORD count, DWORD id, bool bTryMagi
 	{
 		DSManager::instance().DragonSoulItemInitialize(item);
 	}
+#ifdef __RARITY_SYSTEM__
+	sys_log(1, "RARITY_SYSTEM: %d\n", item->GetRarity());
+	item->SetRarity(1);
+	sys_log(1, "RARITY_SYSTEM AFTER: %d\n", item->GetRarity());
+#endif
 	return item;
 }
 
@@ -474,7 +479,7 @@ void ITEM_MANAGER::SaveSingleItem(LPITEM item)
 	t.vnum = item->GetOriginalVnum();
 	t.owner = (t.window == SAFEBOX || t.window == MALL) ? item->GetOwner()->GetDesc()->GetAccountTable().id : item->GetOwner()->GetPlayerID();
 #ifdef __RARITY_SYSTEM__
-	t.rarity = t.vnum == 109 ? 1 : 2;
+	t.rarity = 1;
 	sys_log(1, "ITEM_SAVE %s: OWNER %s: RARITY %d: ", item->GetName(), item->GetOwner()->GetName(), t.rarity);
 #endif
 	thecore_memcpy(t.alSockets, item->GetSockets(), sizeof(t.alSockets));

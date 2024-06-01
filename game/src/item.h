@@ -211,7 +211,10 @@ class CItem : public CEntity
 
 		void		Lock(bool f) { m_isLocked = f; }
 		bool		isLocked() const { return m_isLocked; }
-
+#ifdef __RARITY_SYSTEM__
+		BYTE GetRarity(){return m_rarity;}
+		void SetRarity(BYTE rarity) {m_rarity = rarity;}
+#endif
 	private :
 		void		SetAttribute(int i, BYTE bType, short sValue);
 	public:
@@ -297,6 +300,9 @@ class CItem : public CEntity
 		
 		DWORD		m_dwMaskVnum;
 		DWORD		m_dwSIGVnum;
+#ifdef __RARITY_SYSTEM__
+		BYTE 		m_rarity;
+#endif
 	public:
 		void SetSIGVnum(DWORD dwSIG)
 		{
