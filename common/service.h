@@ -31,7 +31,7 @@
 #define ELEMENT_NEW_BONUSES
 #define __WJ_SHOW_MOB_INFO__
 #define ENABLE_DS_GRADE_MYTH
-#define _RARITY_SYSTEM
+#define __RARITY_SYSTEM__
 
 
 
