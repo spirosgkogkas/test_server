@@ -5,6 +5,7 @@
 #include "../../common/building.h"
 #include "../../common/VnumHelper.h"
 #include "../../libgame/include/grid.h"
+#include "../../common/service.h"
 
 #include "ClientManager.h"
 
@@ -1317,8 +1318,14 @@ void CClientManager::QUERY_ITEM_SAVE(CPeer * pkPeer, const char * c_pData)
 			"attrtype3, attrvalue3, "
 			"attrtype4, attrvalue4, "
 			"attrtype5, attrvalue5, "
+#ifdef __RARITY_SYSTEM__
+			"attrtype6, attrvalue6), "
+			"rarity "
+			"VALUES(%u, %u, %d, %d, %u, %u, %ld, %ld, %ld, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
+#else
 			"attrtype6, attrvalue6) "
 			"VALUES(%u, %u, %d, %d, %u, %u, %ld, %ld, %ld, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
+#endif
 			GetTablePostfix(),
 			p->id,
 			p->owner,
@@ -1335,7 +1342,11 @@ void CClientManager::QUERY_ITEM_SAVE(CPeer * pkPeer, const char * c_pData)
 			p->aAttr[3].bType, p->aAttr[3].sValue,
 			p->aAttr[4].bType, p->aAttr[4].sValue,
 			p->aAttr[5].bType, p->aAttr[5].sValue,
-			p->aAttr[6].bType, p->aAttr[6].sValue);
+			p->aAttr[6].bType, p->aAttr[6].sValue
+#ifdef __RARITY_SYSTEM__
+			,p->rarity
+#endif
+			);
 
 		CDBManager::instance().ReturnQuery(szQuery, QID_ITEM_SAVE, pkPeer->GetHandle(), NULL);
 	}
