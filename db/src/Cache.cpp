@@ -91,7 +91,7 @@ void CItemCache::OnFlush()
 		int iLen = snprintf(szColumns, sizeof(szColumns), "id, owner_id, window, pos, count, vnum, rarity");
 
 		int iValueLen = snprintf(szValues, sizeof(szValues), "%u, %u, %d, %d, %u, %u, %d",
-				p->id, p->owner, p->window, p->pos, p->count, p->vnum, 25);
+				p->id, p->owner, p->window, p->pos, p->count, p->vnum, p->rarity);
 
 		int iUpdateLen = snprintf(szUpdate, sizeof(szUpdate), "owner_id=%u, window=%d, pos=%d, count=%u, vnum=%u",
 				p->owner, p->window, p->pos, p->count, p->vnum);
@@ -142,7 +142,7 @@ void CItemCache::OnFlush()
 					p->aAttr[5].bType, p->aAttr[5].sValue,
 					p->aAttr[6].bType, p->aAttr[6].sValue
 #ifdef __RARITY_SYSTEM__
-					,25
+					,26
 #endif									
 					);
 		}
