@@ -59,7 +59,7 @@ bool CreateItemTableFromRes(MYSQL_RES * res, std::vector<TPlayerItem> * pVec, DW
 		str_to_number(item.alSockets[0], row[cur++]);
 		str_to_number(item.alSockets[1], row[cur++]);
 		str_to_number(item.alSockets[2], row[cur++]);
-
+		sys_log(1, "ID: %d, WINDOW: %d, VNUM: %d, RARITY: %d\n", item.id, item.window, item.vnum, item.rarity);
 		for (int j = 0; j < ITEM_ATTRIBUTE_MAX_NUM; j++)
 		{
 			str_to_number(item.aAttr[j].bType, row[cur++]);
