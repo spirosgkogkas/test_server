@@ -146,14 +146,14 @@ void CItemCache::OnFlush()
 #endif									
 					);
 		}
-
 		char szItemQuery[QUERY_MAX_LEN + QUERY_MAX_LEN];
 		snprintf(szItemQuery, sizeof(szItemQuery), "REPLACE INTO item%s (%s) VALUES(%s)", GetTablePostfix(), szColumns, szValues);
-
+		sys_log(0, "RARITY_QUERY: %s\n", szItemQuery);
 		if (g_test_server)	
 			sys_log(0, "ItemCache::Flush :REPLACE  (%s)", szItemQuery);
 
 		CDBManager::instance().ReturnQuery(szItemQuery, QID_ITEM_SAVE, 0, NULL);
+		sys_log(0, "RETURN RARITY_QUERY: %s\n", szItemQuery);
 
 		//g_item_info.Add(p->vnum);
 		++g_item_count;
