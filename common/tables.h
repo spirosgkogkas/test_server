@@ -415,6 +415,9 @@ typedef struct SPlayerItem
 	TPlayerItemAttribute    aAttr[ITEM_ATTRIBUTE_MAX_NUM];
 
 	DWORD	owner;
+#ifdef __RARITY_SYSTEM__
+	BYTE rarity;
+#endif
 } TPlayerItem;
 
 typedef struct SQuickslot
