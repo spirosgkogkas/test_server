@@ -1319,8 +1319,8 @@ void CClientManager::QUERY_ITEM_SAVE(CPeer * pkPeer, const char * c_pData)
 			"attrtype4, attrvalue4, "
 			"attrtype5, attrvalue5, "
 #ifdef __RARITY_SYSTEM__
-			"attrtype6, attrvalue6), "
-			"rarity "
+			"attrtype6, attrvalue6, "
+			"rarity) "
 			"VALUES(%u, %u, %d, %d, %u, %u, %ld, %ld, %ld, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
 #else
 			"attrtype6, attrvalue6) "
