@@ -137,7 +137,7 @@ extern int g_query_count[2];
 void CDBManager::ReturnQuery(const char * c_pszQuery, int iType, IDENT dwIdent, void * udata, int iSlot)
 {
 	assert(iSlot < SQL_MAX_NUM);
-	//sys_log(0, "ReturnQuery %s", c_pszQuery);
+	sys_log(0, "ReturnQuery %s", c_pszQuery);
 	CQueryInfo * p = new CQueryInfo;
 
 	p->iType = iType;
