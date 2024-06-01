@@ -427,9 +427,9 @@ LPITEM ITEM_MANAGER::CreateItem(DWORD vnum, DWORD count, DWORD id, bool bTryMagi
 		DSManager::instance().DragonSoulItemInitialize(item);
 	}
 #ifdef __RARITY_SYSTEM__
-	sys_log(1, "RARITY_SYSTEM: %d\n", item->GetRarity());
+	sys_log(0, "RARITY_SYSTEM: %d\n", item->GetRarity());
 	item->SetRarity(1);
-	sys_log(1, "RARITY_SYSTEM AFTER: %d\n", item->GetRarity());
+	sys_log(0, "RARITY_SYSTEM AFTER: %d\n", item->GetRarity());
 #endif
 	return item;
 }
