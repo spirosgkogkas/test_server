@@ -90,8 +90,8 @@ void CItemCache::OnFlush()
 
 		int iLen = snprintf(szColumns, sizeof(szColumns), "id, owner_id, window, pos, count, vnum");
 
-		int iValueLen = snprintf(szValues, sizeof(szValues), "%u, %u, %d, %d, %u, %u",
-				p->id, p->owner, p->window, p->pos, p->count, p->vnum);
+		int iValueLen = snprintf(szValues, sizeof(szValues), "%u, %u, %d, %d, %u, %u, %d",
+				p->id, p->owner, p->window, p->pos, p->count, p->vnum, 25);
 
 		int iUpdateLen = snprintf(szUpdate, sizeof(szUpdate), "owner_id=%u, window=%d, pos=%d, count=%u, vnum=%u",
 				p->owner, p->window, p->pos, p->count, p->vnum);
