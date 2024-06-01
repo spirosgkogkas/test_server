@@ -474,7 +474,7 @@ void ITEM_MANAGER::SaveSingleItem(LPITEM item)
 	t.vnum = item->GetOriginalVnum();
 	t.owner = (t.window == SAFEBOX || t.window == MALL) ? item->GetOwner()->GetDesc()->GetAccountTable().id : item->GetOwner()->GetPlayerID();
 #ifdef __RARITY_SYSTEM__
-	t.rarity = vnum == 109 ? 1 : 2;
+	t.rarity = t.vnum == 109 ? 1 : 2;
 #endif
 	thecore_memcpy(t.alSockets, item->GetSockets(), sizeof(t.alSockets));
 	thecore_memcpy(t.aAttr, item->GetAttributes(), sizeof(t.aAttr));
