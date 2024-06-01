@@ -142,7 +142,8 @@ ifdef __RARITY_SYSTEM__
 					p->aAttr[5].bType, p->aAttr[5].sValue,
 					p->aAttr[6].bType, p->aAttr[6].sValue
 #ifdef __RARITY_SYSTEM__
-					,25					
+					,25
+#endif									
 					);
 		}
 
