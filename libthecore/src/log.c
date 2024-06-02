@@ -82,7 +82,7 @@ int log_init(void)
 		log_file_pt = log_file_init(PTS_FILENAME, "w");
 		if( NULL == log_file_pt ) break;
 
-		log_file_debug = log_file_init(SYS_DEBUG);
+		log_file_debug = log_file_init(SYS_DEBUG, "a+");
 		if(NULL == log_file_debug ) break;
 		return true;
 	}
