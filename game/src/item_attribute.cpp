@@ -329,7 +329,7 @@ void CItem::SetAttribute(int i, BYTE bType, short sValue)
 
 		LogManager::instance().ItemLog(i, bType, sValue, GetID(), "SET_ATTR", "", pszIP ? pszIP : "", GetOriginalVnum());
 	}
-	debug_log("");
+	debug_log("BTYPE: %d, SVALUE: %d\n", bType, sValue);
 }
 
 void CItem::SetForceAttribute(int i, BYTE bType, short sValue)
