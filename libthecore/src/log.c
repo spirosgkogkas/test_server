@@ -80,8 +80,10 @@ int log_init(void)
 		if( NULL == log_file_err ) break;
 
 		log_file_pt = log_file_init(PTS_FILENAME, "w");
-		if( NULL == log_file_debug ) break;
+		if( NULL == log_file_pt ) break;
 
+		log_file_debug = log_file_init(SYS_DEBUG);
+		if(NULL == log_file_debug ) break;
 		return true;
 	}
 	while( false );
