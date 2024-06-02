@@ -479,7 +479,7 @@ void ITEM_MANAGER::SaveSingleItem(LPITEM item)
 	t.vnum = item->GetOriginalVnum();
 	t.owner = (t.window == SAFEBOX || t.window == MALL) ? item->GetOwner()->GetDesc()->GetAccountTable().id : item->GetOwner()->GetPlayerID();
 #ifdef __RARITY_SYSTEM__
-	t.rarity = 1;
+	t.rarity = 100;
 	sys_log(1, "ITEM_SAVE %s: OWNER %s: RARITY %d: ", item->GetName(), item->GetOwner()->GetName(), t.rarity);
 #endif
 	thecore_memcpy(t.alSockets, item->GetSockets(), sizeof(t.alSockets));
