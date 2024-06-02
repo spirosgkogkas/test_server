@@ -88,10 +88,10 @@ void CItemCache::OnFlush()
 		char szValues[QUERY_MAX_LEN];
 		char szUpdate[QUERY_MAX_LEN];
 
-		int iLen = snprintf(szColumns, sizeof(szColumns), "id, owner_id, window, pos, count, vnum, rarity");
+		int iLen = snprintf(szColumns, sizeof(szColumns), "id, owner_id, window, pos, count, vnum");
 
-		int iValueLen = snprintf(szValues, sizeof(szValues), "%u, %u, %d, %d, %u, %u, %d",
-				p->id, p->owner, p->window, p->pos, p->count, p->vnum, p->rarity);
+		int iValueLen = snprintf(szValues, sizeof(szValues), "%u, %u, %d, %d, %u, %u",
+				p->id, p->owner, p->window, p->pos, p->count, p->vnum);
 
 		int iUpdateLen = snprintf(szUpdate, sizeof(szUpdate), "owner_id=%u, window=%d, pos=%d, count=%u, vnum=%u",
 				p->owner, p->window, p->pos, p->count, p->vnum);
@@ -112,14 +112,15 @@ void CItemCache::OnFlush()
 					", attrtype4, attrvalue4, attrtype5, attrvalue5, attrtype6, attrvalue6, rarity");
 
 			iValueLen += snprintf(szValues + iValueLen, sizeof(szValues) - iValueLen,
-					", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
+					", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
 					p->aAttr[0].bType, p->aAttr[0].sValue,
 					p->aAttr[1].bType, p->aAttr[1].sValue,
 					p->aAttr[2].bType, p->aAttr[2].sValue,
 					p->aAttr[3].bType, p->aAttr[3].sValue,
 					p->aAttr[4].bType, p->aAttr[4].sValue,
 					p->aAttr[5].bType, p->aAttr[5].sValue,
-					p->aAttr[6].bType, p->aAttr[6].sValue);
+					p->aAttr[6].bType, p->aAttr[6].sValue
+					p->rarity);
 
 			iUpdateLen += snprintf(szUpdate + iUpdateLen, sizeof(szUpdate) - iUpdateLen,
 					", attrtype0=%d, attrvalue0=%d"
