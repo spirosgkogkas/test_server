@@ -119,7 +119,7 @@ void CItemCache::OnFlush()
 					p->aAttr[3].bType, p->aAttr[3].sValue,
 					p->aAttr[4].bType, p->aAttr[4].sValue,
 					p->aAttr[5].bType, p->aAttr[5].sValue,
-					p->aAttr[6].bType, p->aAttr[6].sValue
+					p->aAttr[6].bType, p->aAttr[6].sValue,
 					p->rarity);
 
 			iUpdateLen += snprintf(szUpdate + iUpdateLen, sizeof(szUpdate) - iUpdateLen,
