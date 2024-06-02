@@ -25,6 +25,7 @@ extern "C"
     extern void sys_log_header(const char *header);
     extern void sys_log(unsigned int lv, const char *format, ...);
     extern void pt_log(const char *format, ...);
+    extern void debug_log(const char *format, ...);
 
 #ifndef __WIN32__
 #define sys_err(fmt, args...) _sys_err(__FUNCTION__, __LINE__, fmt, ##args)

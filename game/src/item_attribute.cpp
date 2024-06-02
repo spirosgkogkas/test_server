@@ -195,7 +195,7 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 {
 	int iAttrLevelPercent = number(1, 100);
 	int i;
-
+	//100, 80, 60, 50, 30, 0, 0, 
 	for (i = 0; i < ITEM_ATTRIBUTE_MAX_LEVEL; ++i)
 	{
 		if (iAttrLevelPercent <= aiAttrPercentTable[i])
@@ -329,6 +329,7 @@ void CItem::SetAttribute(int i, BYTE bType, short sValue)
 
 		LogManager::instance().ItemLog(i, bType, sValue, GetID(), "SET_ATTR", "", pszIP ? pszIP : "", GetOriginalVnum());
 	}
+	debug_log("");
 }
 
 void CItem::SetForceAttribute(int i, BYTE bType, short sValue)

@@ -11,6 +11,7 @@
 #define SYSLOG_FILENAME "syslog"
 #define SYSERR_FILENAME "syserr"
 #define PTS_FILENAME "PTS"
+#define SYS_DEBUG "sys_debug"
 #else
 #define SYSLOG_FILENAME "syslog.txt"
 #define SYSERR_FILENAME "syserr.txt"
@@ -32,6 +33,8 @@ struct log_file_s
 LPLOGFILE	log_file_sys = NULL;
 LPLOGFILE	log_file_err = NULL;
 LPLOGFILE	log_file_pt = NULL;
+LPLOGFILE	log_file_debug = NULL;
+
 static char	log_dir[32] = { 0, };
 unsigned int log_keep_days = 3;
 
@@ -77,7 +80,7 @@ int log_init(void)
 		if( NULL == log_file_err ) break;
 
 		log_file_pt = log_file_init(PTS_FILENAME, "w");
-		if( NULL == log_file_pt ) break;
+		if( NULL == log_file_debug ) break;
 
 		return true;
 	}
@@ -91,10 +94,12 @@ void log_destroy(void)
 	log_file_destroy(log_file_sys);
 	log_file_destroy(log_file_err);
 	log_file_destroy(log_file_pt);
+	log_file_destroy(log_file_debug);
 
 	log_file_sys = NULL;
 	log_file_err = NULL;
 	log_file_pt = NULL;
+	log_file_debug = NULL;
 }
 
 void log_rotate(void)
@@ -186,6 +191,26 @@ void sys_log_header(const char *header)
 	strncpy(sys_log_header_string, header, 32);
 }
 
+void debug_log(const char *format, ...)
+{
+	va_list args;
+	
+	if(log_file_debug)
+	{
+		time_t ct = time(0);
+		char *time_s = asctime(localtime(&ct));
+		times[strlen(time_s) - 1] = '\0';
+		fprintf(log_file_debug->fp, "%15.15s :: ", time_s + 4);
+
+		va_start(args, format);
+		vfprintf(log_file_debug->fp, format, args);
+		va_end(args);
+
+		fputc('\n', log_file_debug->fp);
+		fflush(log_file_debug->fp);
+	}
+}
+
 void sys_log(unsigned int bit, const char *format, ...)
 {
 	va_list	args;
@@ -212,7 +237,7 @@ void sys_log(unsigned int bit, const char *format, ...)
 	}
 
 #ifndef __WIN32__
-	// log_level이 1 이상일 경우에는 테스트일 경우가 많으니 stdout에도 출력한다.
+	// If Log_level is more than 1, it is often tested, so it is also output to stdout..
 	if (log_level_bits > 1)
 	{
 #endif
