@@ -199,7 +199,7 @@ void debug_log(const char *format, ...)
 	{
 		time_t ct = time(0);
 		char *time_s = asctime(localtime(&ct));
-		times[strlen(time_s) - 1] = '\0';
+		time_s[strlen(time_s) - 1] = '\0';
 		fprintf(log_file_debug->fp, "%15.15s :: ", time_s + 4);
 
 		va_start(args, format);
