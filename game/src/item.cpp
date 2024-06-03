@@ -1469,7 +1469,7 @@ void CItem::AlterToMagicItem()
 		}
 	}
 
-	// 100% 확률로 좋은 속성 하나
+	// 100% One good attribute with a chance
 	PutAttribute(aiItemMagicAttributePercentHigh);
 
 	if (number(1, 100) <= iSecondPct)

@@ -4492,8 +4492,8 @@ ACMD (do_attr_full_set)
 	case JOB_SURA:
 	case JOB_SHAMAN:
 		{
-			// 무사 몸빵 셋팅.
-			// 이것만 나와 있어서 임시로 모든 직군 다 이런 속성 따름.
+			// set samurai body bread.
+			// This is only this time, so all job groups are all these attributes.
 			item = ch->GetWear(WEAR_HEAD);
 			if (item != NULL)
 			{

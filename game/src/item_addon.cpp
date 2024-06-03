@@ -20,7 +20,7 @@ void CItemAddonManager::ApplyAddonTo(int iAddonType, LPITEM pItem)
 		return;
 	}
 
-	// TODO 일단 하드코딩으로 평타 스킬 수치 변경만 경우만 적용받게한다.
+	// TODO Once hard coding is changed only by changing the level of flat skills.
 
 	int iSkillBonus = MINMAX(-30, (int) (gauss_random(0, 5) + 0.5f), 30);
 	int iNormalHitBonus = 0;

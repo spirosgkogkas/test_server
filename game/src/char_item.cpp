@@ -4516,9 +4516,9 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								BuffOnAttr_RemoveBuffsFromItem(item2);
 							}
 
-							// [NOTE] ÄÚ½ºÆ¬ ¾ÆÀÌÅÛ¿¡´Â ¾ÆÀÌÅÛ ÃÖÃÊ »ý¼º½Ã ·£´ý ¼Ó¼ºÀ» ºÎ¿©ÇÏµÇ, Àç°æÀç°¡ µîµîÀº ¸·¾Æ´Þ¶ó´Â ¿äÃ»ÀÌ ÀÖ¾úÀ½.
-							// ¿ø·¡ ANTI_CHANGE_ATTRIBUTE °°Àº ¾ÆÀÌÅÛ Flag¸¦ Ãß°¡ÇÏ¿© ±âÈ¹ ·¹º§¿¡¼­ À¯¿¬ÇÏ°Ô ÄÁÆ®·Ñ ÇÒ ¼ö ÀÖµµ·Ï ÇÒ ¿¹Á¤ÀÌ¾úÀ¸³ª
-							// ±×µý°Å ÇÊ¿ä¾øÀ¸´Ï ´ÚÄ¡°í »¡¸® ÇØ´Þ·¡¼­ ±×³É ¿©±â¼­ ¸·À½... -_-
+							// [NOTE] The costume item has a request to give a random properties when item first generation, but to prevent Jae Kyung -jae and so on.
+							// Originally, it was planned to be able to flexibly control at the planning level by adding items such as Anti_Change_attribute.
+							// I don't need anything else, so I shut up and do it quickly so I just block it here ... -_-
 							if (ITEM_COSTUME == item2->GetType())
 							{
 								ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼ºÀ» º¯°æÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù."));
@@ -4576,21 +4576,21 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								case USE_CHANGE_ATTRIBUTE :
 									if (item2->GetAttributeSetIndex() == -1)
 									{
-										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼ºÀ» º¯°æÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù."));
+										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is an item that cannot be changed."));
 										return false;
 									}
 
 									if (item2->GetAttributeCount() == 0)
 									{
-										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("º¯°æÇÒ ¼Ó¼ºÀÌ ¾ø½À´Ï´Ù."));
+										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("There is no attribute to change."));
 										return false;
 									}
 
 									if (GM_PLAYER == GetGMLevel() && false == test_server)
 									{
 										//
-										// Event Flag ¸¦ ÅëÇØ ÀÌÀü¿¡ ¾ÆÀÌÅÛ ¼Ó¼º º¯°æÀ» ÇÑ ½Ã°£À¸·Î ºÎÅÍ ÃæºÐÇÑ ½Ã°£ÀÌ Èê·¶´ÂÁö °Ë»çÇÏ°í
-										// ½Ã°£ÀÌ ÃæºÐÈ÷ Èê·¶´Ù¸é ÇöÀç ¼Ó¼ºº¯°æ¿¡ ´ëÇÑ ½Ã°£À» ¼³Á¤ÇØ ÁØ´Ù.
+										// Event Flag Through the previous time, I checked the change of the item properties from one time.
+										// If the time is enough, set the time for the current attribute change.
 										//
 
 										DWORD dwChangeItemAttrCycle = quest::CQuestManager::instance().GetEventFlag(msc_szChangeItemAttrCycleFlag);
@@ -4655,20 +4655,20 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 												}
 												if (false == bCanUse)
 												{
-													ChatPacket(CHAT_TYPE_INFO, LC_TEXT("Àû¿ë ·¹º§º¸´Ù ³ô¾Æ »ç¿ëÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù."));
+													ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is higher than the application level and cannot be used."));
 													break;
 												}
 											}
 											else
 											{
-												ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¹«±â¿Í °©¿Ê¿¡¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù."));
+												ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It can only be used for weapons and armor."));
 												break;
 											}
 										}
 										item2->ChangeAttribute();
 									}
 
-									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼ºÀ» º¯°æÇÏ¿´½À´Ï´Ù."));
+									ChatPacket(CHAT_TYPE_INFO, LC_TEXT("I changed the property."));
 									{
 										char buf[21];
 										snprintf(buf, sizeof(buf), "%u", item2->GetID());
@@ -4681,14 +4681,14 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 								case USE_ADD_ATTRIBUTE :
 									if (item2->GetAttributeSetIndex() == -1)
 									{
-										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼ºÀ» º¯°æÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù."));
+										ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is an item that cannot be changed."));
 										return false;
 									}
 
 									if (item2->GetAttributeCount() < 4)
 									{
-										// ¿¬Àç°¡ Æ¯¼öÃ³¸®
-										// Àý´ë·Î ¿¬Àç°¡ Ãß°¡ ¾ÈµÉ°Å¶ó ÇÏ¿© ÇÏµå ÄÚµùÇÔ.
+										// special processing
+										// Hard coding because it will never be added.
 										if (item->GetVnum() == 71152 || item->GetVnum() == 76024)
 										{
 											if ((item2->GetType() == ITEM_WEAPON)
@@ -4705,13 +4705,13 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 												}
 												if (false == bCanUse)
 												{
-													ChatPacket(CHAT_TYPE_INFO, LC_TEXT("Àû¿ë ·¹º§º¸´Ù ³ô¾Æ »ç¿ëÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù."));
+													ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is not possible to use because it is higher than the application level.."));
 													break;
 												}
 											}
 											else
 											{
-												ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¹«±â¿Í °©¿Ê¿¡¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù."));
+												ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It can only be used for weapons and armor."));
 												break;
 											}
 										}
@@ -4721,7 +4721,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 										if (number(1, 100) <= aiItemAttributeAddPercent[item2->GetAttributeCount()])
 										{
 											item2->AddAttribute();
-											ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼º Ãß°¡¿¡ ¼º°øÇÏ¿´½À´Ï´Ù."));
+											ChatPacket(CHAT_TYPE_INFO, LC_TEXT("We succeeded in adding property."));
 
 											int iAddedIdx = item2->GetAttributeCount() - 1;
 											LogManager::instance().ItemLog(
@@ -4736,7 +4736,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 										}
 										else
 										{
-											ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¼Ó¼º Ãß°¡¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."));
+											ChatPacket(CHAT_TYPE_INFO, LC_TEXT("Failed to add property."));
 											LogManager::instance().ItemLog(this, item, "ADD_ATTRIBUTE_FAIL", buf);
 										}
 
@@ -5123,7 +5123,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 			break;
 
 		case ITEM_BLEND:
-			// »õ·Î¿î ¾àÃÊµé
+			// New herbs
 			sys_log(0,"ITEM_BLEND!!");
 			if (Blend_Item_find(item->GetVnum()))
 			{
@@ -5217,7 +5217,7 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 
 	if (!item->CanUsedBy(this))
 	{
-		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("±ºÁ÷ÀÌ ¸ÂÁö¾Ê¾Æ ÀÌ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."));
+		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("This item cannot be used because it is not right."));
 		return false;
 	}
 
@@ -5290,7 +5290,7 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 		//END_PREVENT_ITEM_COPY
 		
 
-		//±ÍÈ¯ºÎ °Å¸®Ã¼Å©
+		//Check return distance
 		if (item->GetVnum() != 70302)
 		{
 			PIXEL_POSITION posWarp;
@@ -5338,7 +5338,7 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 		//±³È¯ ÈÄ ½Ã°£Ã¼Å©
 		if (iPulse - GetExchangeTime()  < PASSES_PER_SEC(g_nPortalLimitTime))
 		{
-			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("°Å·¡ ÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎµîÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."), g_nPortalLimitTime);
+			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("After the transaction, the return part, return memory, etc. cannot be used within the %d second.."), g_nPortalLimitTime);
 			return false;
 		}
 		//END_PREVENT_PORTAL_AFTER_EXCHANGE
@@ -5350,14 +5350,14 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 	{
 		if (GetExchange() || GetMyShop() || GetShopOwner() || IsOpenSafebox() || IsCubeOpen())
 		{
-			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("°Å·¡Ã¢,Ã¢°í µîÀ» ¿¬ »óÅÂ¿¡¼­´Â º¸µû¸®,ºñ´Üº¸µû¸®¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù."));
+			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("In the state of a trading window or a warehouse, you can't use a pack or silk."));
 			return false;
 		}
 
 	}
 	//END_PREVENT_TRADE_WINDOW
 
-	if (IS_SET(item->GetFlag(), ITEM_FLAG_LOG)) // »ç¿ë ·Î±×¸¦ ³²±â´Â ¾ÆÀÌÅÛ Ã³¸®
+	if (IS_SET(item->GetFlag(), ITEM_FLAG_LOG)) // Item processing to leave a log
 	{
 		DWORD vid = item->GetVID();
 		DWORD oldCount = item->GetCount();
@@ -5371,7 +5371,7 @@ bool CHARACTER::UseItem(TItemPos Cell, TItemPos DestCell)
 
 		bool ret = UseItemEx(item, DestCell);
 
-		if (NULL == ITEM_MANAGER::instance().FindByVID(vid)) // UseItemEx¿¡¼­ ¾ÆÀÌÅÛÀÌ »èÁ¦ µÇ¾ú´Ù. »èÁ¦ ·Î±×¸¦ ³²±è
+		if (NULL == ITEM_MANAGER::instance().FindByVID(vid)) // UseItemExThe item has been deleted.Leave a delete log
 		{
 			LogManager::instance().ItemLog(this, vid, vnum, "REMOVE", hint);
 		}
@@ -5414,7 +5414,7 @@ bool CHARACTER::DropItem(TItemPos Cell, BYTE bCount)
 
 	if (IS_SET(item->GetAntiFlag(), ITEM_ANTIFLAG_DROP | ITEM_ANTIFLAG_GIVE))
 	{
-		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¹ö¸± ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù."));
+		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is an item that cannot be discarded."));
 		return false;
 	}
 
@@ -5476,12 +5476,12 @@ bool CHARACTER::DropItem(TItemPos Cell, BYTE bCount)
 
 	if (pkItemToDrop->AddToGround(GetMapIndex(), pxPos))
 	{
-		// ÇÑ±¹¿¡´Â ¾ÆÀÌÅÛÀ» ¹ö¸®°í º¹±¸ÇØ´Þ¶ó´Â Áø»óÀ¯ÀúµéÀÌ ¸¹¾Æ¼­
-		// ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¹ö¸± ½Ã ¼Ó¼º·Î±×¸¦ ³²±ä´Ù.
+		// In Korea, there are a lot of truth users who want to abandon and restore items.
+		// Leave an attribute log when you throw an item on the floor.
 		if (LC_IsYMIR())
 			item->AttrLog();
 
-		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¶³¾îÁø ¾ÆÀÌÅÛÀº 3ºÐ ÈÄ »ç¶óÁý´Ï´Ù."));
+		ChatPacket(CHAT_TYPE_INFO, LC_TEXT("The falling item will disappear after 3 minutes."));
 		pkItemToDrop->StartDestroyEvent();
 
 		ITEM_MANAGER::instance().FlushDelayedSave(pkItemToDrop);
@@ -5505,7 +5505,7 @@ bool CHARACTER::DestroyItem(TItemPos Cell)
 	if (!CanHandleItem())
 	{
 		if (NULL != DragonSoul_RefineWindow_GetOpener())
-			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("°*E*AcA» ?¬ »óAÂ?!1*´Â 3AAIAUA» ?A±a 1ö 3o1A´I´U."));
+			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("?*E*ACA ??? SANG A ??!1*is 3aaiaua ??A ±a 1? 3o1a ´I´U."));
 		return false;
 	}
 	if (IsDead())
@@ -5539,7 +5539,7 @@ bool CHARACTER::DropGold(int gold)
 	{
 		if (get_dword_time() < m_dwLastGoldDropTime+g_GoldDropTimeLimitValue)
 		{
-			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("¾ÆÁ÷ °ñµå¸¦ ¹ö¸± ¼ö ¾ø½À´Ï´Ù."));
+			ChatPacket(CHAT_TYPE_INFO, LC_TEXT("I can't throw away the gold yet."));
 			return false;
 		}
 	}
@@ -5557,11 +5557,11 @@ bool CHARACTER::DropGold(int gold)
 			//Motion(MOTION_PICKUP);
 			PointChange(POINT_GOLD, -gold, true);
 
-			// ºê¶óÁú¿¡ µ·ÀÌ ¾ø¾îÁø´Ù´Â ¹ö±×°¡ ÀÖ´Âµ¥,
-			// °¡´ÉÇÑ ½Ã³ª¸®¿À Áß¿¡ ÇÏ³ª´Â,
-			// ¸ÞÅ©·Î³ª, ÇÙÀ» ½á¼­ 1000¿ø ÀÌÇÏÀÇ µ·À» °è¼Ó ¹ö·Á °ñµå¸¦ 0À¸·Î ¸¸µé°í, 
-			// µ·ÀÌ ¾ø¾îÁ³´Ù°í º¹±¸ ½ÅÃ»ÇÏ´Â °ÍÀÏ ¼öµµ ÀÖ´Ù.
-			// µû¶ó¼­ ±×·± °æ¿ì¸¦ Àâ±â À§ÇØ ³·Àº ¼öÄ¡ÀÇ °ñµå¿¡ ´ëÇØ¼­µµ ·Î±×¸¦ ³²±è.
+			// There is a bug that Brazil is missing money,
+			// One of the possible scenarios,
+			// Macrona, using a nucleus to keep up with less than 1,000 won, making gold 0, 
+			// You may apply for recovery because the money is gone.
+			// So leave a log for a low number of gold to catch such a case.
 			if (LC_IsBrazil() == true)
 			{
 				if (gold >= 213)

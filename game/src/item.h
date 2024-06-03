@@ -230,7 +230,7 @@ class CItem : public CEntity
 
 	protected:
 		friend class CInputDB;
-		bool		OnAfterCreatedItem();			// 서버상에 아이템이 모든 정보와 함께 완전히 생성(로드)된 후 불리우는 함수.
+		bool		OnAfterCreatedItem();			// A function that is called after the item on the server is completely created with all the information.
 
 	public:
 		bool		IsRideItem();
@@ -246,15 +246,15 @@ class CItem : public CEntity
 		bool		MoveToAuction ();
 		void		CopyToRawData (TPlayerItem* item);
 #endif
-		// 독일에서 기존 캐시 아이템과 같지만, 교환 가능한 캐시 아이템을 만든다고 하여,
-		// 오리지널 아이템에, 교환 금지 플래그만 삭제한 새로운 아이템들을 새로운 아이템 대역에 할당하였다.
-		// 문제는 새로운 아이템도 오리지널 아이템과 같은 효과를 내야하는데,
-		// 서버건, 클라건, vnum 기반으로 되어있어
-		// 새로운 vnum을 죄다 서버에 새로 다 박아야하는 안타까운 상황에 맞닿았다.
-		// 그래서 새 vnum의 아이템이면, 서버에서 돌아갈 때는 오리지널 아이템 vnum으로 바꿔서 돌고 하고,
-		// 저장할 때에 본래 vnum으로 바꿔주도록 한다.
+		// The same as the existing cache item in Germany, but it is said to make a exchangeable cache item,
+// to the original item, new items that were deleted only to the ban were assigned to the new item band.
+// The problem is that the new item must have the same effect as the original item,
+// Server gun, Clargun, VNum is based on VNUM
+// The new Vnum has been in line with the sad situation that must be newly put on the server.
+// So if it's a new vnum item, when you go back from the server, you turn it to the original item vnum and turn it around.
+// change to VNum when saving.
 
-		// Mask vnum은 어떤 이유(ex. 위의 상황)로 인해 vnum이 바뀌어 돌아가는 아이템을 위해 있다.
+// mask vnum is for the item that turns VNum for some reason (ex. Above).
 		void		SetMaskVnum(DWORD vnum)	{	m_dwMaskVnum = vnum; }
 		DWORD		GetMaskVnum()			{	return m_dwMaskVnum; }
 		bool		IsMaskedItem()	{	return m_dwMaskVnum != 0;	}

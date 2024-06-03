@@ -113,6 +113,7 @@ void CItem::AddAttribute(BYTE bApply, short sValue)
 
 void CItem::AddAttr(BYTE bApply, BYTE bLevel)
 {
+	debug_log("CItem::AddAttr -> bApply %d | bLevel %d\n", bApply, bLevel);
 	if (HasAttr(bApply))
 		return;
 
@@ -147,7 +148,7 @@ void CItem::PutAttributeWithLevel(BYTE bLevel)
 
 	int total = 0;
 
-	// 붙일 수 있는 속성 배열을 구축
+	// Establish an array of properties that can be attached
 	for (int i = 0; i < MAX_APPLY_NUM; ++i)
 	{
 		const TItemAttrTable & r = g_map_itemAttr[i];
@@ -159,7 +160,7 @@ void CItem::PutAttributeWithLevel(BYTE bLevel)
 		}
 	}
 
-	// 구축된 배열로 확률 계산을 통해 붙일 속성 선정
+	// Selection of properties to be attached through the probability calculation with the built arrangement
 	unsigned int prob = number(1, total);
 	int attr_idx = APPLY_NONE;
 
@@ -184,7 +185,7 @@ void CItem::PutAttributeWithLevel(BYTE bLevel)
 
 	const TItemAttrTable & r = g_map_itemAttr[attr_idx];
 
-	// 종류별 속성 레벨 최대값 제한
+	// Limit at the maximum value of properties by type
 	if (bLevel > r.bMaxLevelBySet[iAttributeSet])
 		bLevel = r.bMaxLevelBySet[iAttributeSet];
 
