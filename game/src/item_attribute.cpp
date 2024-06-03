@@ -208,7 +208,7 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 
 	switch(rarity)
 	{
-		case 1:
+		case 0:
 			i = i  > rarity ? rarity : i;
 			break;
 	}
