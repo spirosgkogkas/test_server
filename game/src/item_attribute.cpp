@@ -194,10 +194,10 @@ void CItem::PutAttributeWithLevel(BYTE bLevel)
 
 void CItem::PutAttribute(const int * aiAttrPercentTable)
 {
-	int iAttrLevelPercent = number(1, 100);
+	int iAttrLevelPercent = number(1, 100); //35
 	int i;
+	BYTE rarity = this->GetRarity();
 	//40, 50, 10, 0, 0 <- Chances
-	debug_log("THIS RARITY: %d\n", this->GetRarity() - 1);
 	for (i = 0; i < ITEM_ATTRIBUTE_MAX_LEVEL; ++i)
 	{
 		if (iAttrLevelPercent <= aiAttrPercentTable[i])
@@ -205,8 +205,15 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 
 		iAttrLevelPercent -= aiAttrPercentTable[i];
 	}
-	debug_log("PutAttrubite LEVEL: %d | Rarity: %d\n", i+1, this->GetRarity());
-	PutAttributeWithLevel(0 + 1);
+
+	switch(rarity)
+	{
+		case 1:
+			i = i  > rarity ? rarity : i;
+			break;
+	}
+	debug_log("PutAttribute LEVEL: %d | Rarity: %d\n", i+1, this->GetRarity());
+	PutAttributeWithLevel(i + 1);
 }
 
 void CItem::ChangeAttribute(const int* aiChangeProb)
