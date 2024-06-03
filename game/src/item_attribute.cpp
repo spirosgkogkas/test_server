@@ -194,7 +194,7 @@ void CItem::PutAttributeWithLevel(BYTE bLevel)
 
 void CItem::PutAttribute(const int * aiAttrPercentTable)
 {
-	int iAttrLevelPercent = number(1, 100); //35
+	int iAttrLevelPercent = number(1, 100);
 	int i;
 	BYTE rarity = this->GetRarity();
 	//40, 50, 10, 0, 0 <- Chances

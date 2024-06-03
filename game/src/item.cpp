@@ -1469,14 +1469,14 @@ void CItem::AlterToMagicItem()
 		}
 	}
 
-	// 100% One good attribute with a chance
-	PutAttribute(aiItemMagicAttributePercentHigh);
+	// // 100% One good attribute with a chance
+	// PutAttribute(aiItemMagicAttributePercentHigh);
 
-	if (number(1, 100) <= iSecondPct)
-		PutAttribute(aiItemMagicAttributePercentLow);
+	// if (number(1, 100) <= iSecondPct)
+	// 	PutAttribute(aiItemMagicAttributePercentLow);
 
-	if (number(1, 100) <= iThirdPct)
-		PutAttribute(aiItemMagicAttributePercentLow);
+	// if (number(1, 100) <= iThirdPct)
+	// 	PutAttribute(aiItemMagicAttributePercentLow);
 }
 
 DWORD CItem::GetRefineFromVnum()

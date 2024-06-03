@@ -340,9 +340,9 @@ LPITEM ITEM_MANAGER::CreateItem(DWORD vnum, DWORD count, DWORD id, bool bTryMagi
 		}
 	}
 
-	if (id == 0) // 새로 만드는 아이템일 때만 처리
+	if (id == 0) // Only when it is a new item
 	{
-		// 새로추가되는 약초들일경우 성능을 다르게처리
+		// In case of new herbs, the performance is different
 		if (ITEM_BLEND==item->GetType())
 		{
 			if (Blend_Item_find(item->GetVnum()))
