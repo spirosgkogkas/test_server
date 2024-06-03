@@ -4600,7 +4600,7 @@ ACMD (do_use_item)
 	}
 	else
 	{
-		ch->ChatPacket(CHAT_TYPE_INFO, "아이템이 없어서 착용할 수 없어.");
+		ch->ChatPacket(CHAT_TYPE_INFO, "I can't wear it because there is no item.");
 	}
 }
 

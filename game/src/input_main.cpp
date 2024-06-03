@@ -881,6 +881,7 @@ void CInputMain::ItemUse(LPCHARACTER ch, const char * data)
 void CInputMain::ItemToItem(LPCHARACTER ch, const char * pcData)
 {
 	TPacketCGItemUseToItem * p = (TPacketCGItemUseToItem *) pcData;
+	debug_log("USE ITEM: ");
 	if (ch)
 		ch->UseItem(p->Cell, p->TargetCell);
 }
@@ -3074,7 +3075,7 @@ int CInputMain::MyShop(LPCHARACTER ch, const char * c_pData, size_t uiBytes)
 	#ifndef FULL_YANG
  	if (ch->GetGold() >= GOLD_MAX)
 	{
-		ch->ChatPacket(CHAT_TYPE_INFO, LC_TEXT("1OA— µ·AI 203i3ÉA» 3N3î °A·!¸¦ ÇU1ö°! 3o1A´I´U."));
+		ch->ChatPacket(CHAT_TYPE_INFO, LC_TEXT("1OA? µ·AI 203i3?A? 3N3? °A?!¸¦ ?U1ö°! 3o1A´I´U."));
 		sys_log(0, "MyShop ==> OverFlow Gold id %u name %s ", ch->GetPlayerID(), ch->GetName());
 		return (iExtraLen);
 	}
@@ -3084,7 +3085,7 @@ int CInputMain::MyShop(LPCHARACTER ch, const char * c_pData, size_t uiBytes)
 
 	if (ch->GetExchange() || ch->IsOpenSafebox() || ch->GetShopOwner() || ch->IsCubeOpen())
 	{
-		ch->ChatPacket(CHAT_TYPE_INFO, LC_TEXT("´U¸Y °A·!ÁßAI°a?i °3AÎ»óÁ!A» ?­1ö°! 3o1A´I´U."));
+		ch->ChatPacket(CHAT_TYPE_INFO, LC_TEXT("´U¸Y °A?!ÁßAI°a?i ?3AÎ»óÁ!A? ??1ö°! 3o1A´I´U."));
 		return (iExtraLen);
 	}
 
