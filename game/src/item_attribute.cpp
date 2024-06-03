@@ -196,7 +196,7 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 {
 	int iAttrLevelPercent = number(1, 100);
 	int i;
-	//100, 80, 60, 50, 30, 0, 0, 
+	//40, 50, 10, 0, 0 <- Chances
 	for (i = 0; i < ITEM_ATTRIBUTE_MAX_LEVEL; ++i)
 	{
 		if (iAttrLevelPercent <= aiAttrPercentTable[i])
@@ -204,7 +204,7 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 
 		iAttrLevelPercent -= aiAttrPercentTable[i];
 	}
-
+	debug_log("PutAttrubite LEVEL: %d\n", i+1);
 	PutAttributeWithLevel(i + 1);
 }
 

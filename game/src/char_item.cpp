@@ -4521,7 +4521,7 @@ bool CHARACTER::UseItemEx(LPITEM item, TItemPos DestCell)
 							// I don't need anything else, so I shut up and do it quickly so I just block it here ... -_-
 							if (ITEM_COSTUME == item2->GetType())
 							{
-								ChatPacket(CHAT_TYPE_INFO, LC_TEXT("속성을 변경할 수 없는 아이템입니다."));
+								ChatPacket(CHAT_TYPE_INFO, LC_TEXT("It is an item that cannot be changed."));
 								return false;
 							}
 
