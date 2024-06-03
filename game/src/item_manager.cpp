@@ -479,7 +479,7 @@ void ITEM_MANAGER::SaveSingleItem(LPITEM item)
 	t.vnum = item->GetOriginalVnum();
 	t.owner = (t.window == SAFEBOX || t.window == MALL) ? item->GetOwner()->GetDesc()->GetAccountTable().id : item->GetOwner()->GetPlayerID();
 #ifdef __RARITY_SYSTEM__
-	t.rarity = 100;
+	t.rarity = 1;
 	sys_log(1, "ITEM_SAVE %s: OWNER %s: RARITY %d: ", item->GetName(), item->GetOwner()->GetName(), t.rarity);
 #endif
 	thecore_memcpy(t.alSockets, item->GetSockets(), sizeof(t.alSockets));
@@ -1394,7 +1394,7 @@ bool DropEvent_CharStone_SetValue(const std::string& name, int value)
 // fixme
 // À§ÀÇ °Í°ú ÇÔ²² quest·Î »¬°Í »©º¸ÀÚ. 
 // ÀÌ°Å ³Ê¹« ´õ·´Àİ¾Æ...
-// ”?. ÇÏµåÄÚµù ½È´Ù ¤Ì¤Ğ
+// ??. ÇÏµåÄÚµù ½È´Ù ¤Ì¤Ğ
 // °è·® ¾ÆÀÌÅÛ º¸»ó ½ÃÀÛ.
 // by rtsummit °íÄ¡ÀÚ ÁøÂ¥
 static struct DropEvent_RefineBox

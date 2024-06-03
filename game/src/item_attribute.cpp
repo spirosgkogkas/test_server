@@ -197,14 +197,14 @@ void CItem::PutAttribute(const int * aiAttrPercentTable)
 	int iAttrLevelPercent = number(1, 100);
 	int i;
 	//40, 50, 10, 0, 0 <- Chances
-	for (i = 0; i < ITEM_ATTRIBUTE_MAX_LEVEL; ++i)
+	for (i = 0; i < ITEM_ATTRIBUTE_MAX_LEVEL && i < this->GetRarity(); ++i)
 	{
 		if (iAttrLevelPercent <= aiAttrPercentTable[i])
 			break;
 
 		iAttrLevelPercent -= aiAttrPercentTable[i];
 	}
-	debug_log("PutAttrubite LEVEL: %d\n", i+1);
+	debug_log("PutAttrubite LEVEL: %d | Rarity: %d\n", i+1, this->GetRarity());
 	PutAttributeWithLevel(i + 1);
 }
 
